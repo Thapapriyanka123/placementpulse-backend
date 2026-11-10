@@ -1,110 +1,3 @@
-        yield db
-    finally:
-        db.close()
-EOF
-
-uvicorn main:app --reload
-source venv/bin/activate
-cat << 'EOF' > database.py
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:YOUR_PASSWORD@placementpulse-db.c09uw6y6c2h5.us-east-1.rds.amazonaws.com:5432/postgres"
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-EOF
-
-uvicorn main:app --reloadcat << 'EOF' > database.py
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:YOUR_PASSWORD@placementpulse-db.c09uw6y6c2h5.us-east-1.rds.amazonaws.com:5432/postgres"
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-EOF
-
-uvicorn main:app --reload
-cat main.py
-cat << 'EOF' > database.py
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:YOUR_PASSWORD@placementpulse-db.c09uw6y6c2h5.us-east-1.rds.amazonaws.com:5432/postgres"
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-EOF
-
-cat << 'EOF' > main.py
-from fastapi import FastAPI
-from database import engine
-import models
-
-# Automatically create database tables in AWS RDS PostgreSQL
-models.Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="PlacementPulse Backend")
-
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to PlacementPulse API!"}
-EOF
-
-uvicorn main:app --reloadcat << 'EOF' > database.py
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:YOUR_PASSWORD@placementpulse-db.c09uw6y6c2h5.us-east-1.rds.amazonaws.com:5432/postgres"
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-EOF
 
 cat << 'EOF' > main.py
 from fastapi import FastAPI
@@ -998,3 +891,110 @@ python3 main.py
 uvicorn main:app --host 0.0.0.0 --port 8000
 nohup uvicorn main:app --host 0.0.0.0 --port 8000 --reload &
 ps aux | grep uvicorn
+cat << 'EOF' > README.md
+# FastAPI Backend Deployment on AWS EC2
+
+## Architecture Overview
+- **Framework:** FastAPI (Python 3.9+)
+- **Database:** SQLite with SQLAlchemy ORM
+- **Authentication:** Passlib (Bcrypt) & JWT Tokens (python-jose)
+- **Server:** Uvicorn ASGI Server
+- **Infrastructure:** AWS EC2 (Amazon Linux 2023)
+
+## Key Components
+- `database.py`: Database engine and session configuration.
+- `models.py`: User ORM model mapping.
+- `main.py`: REST API endpoints (`/register`, `/login`), security logic, and token verification.
+
+## Running Instructions
+```bash
+source venv/bin/activate
+pip install fastapi uvicorn passlib[bcrypt] sqlalchemy pydantic python-jose[cryptography] python-multipart
+nohup uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &cat << 'EOF' > README.md
+# FastAPI Backend Deployment on AWS EC2
+
+## Architecture Overview
+- **Framework:** FastAPI (Python 3.9+)
+- **Database:** SQLite with SQLAlchemy ORM
+- **Authentication:** Passlib (Bcrypt) & JWT Tokens (python-jose)
+- **Server:** Uvicorn ASGI Server
+- **Infrastructure:** AWS EC2 (Amazon Linux 2023)
+
+## Key Components
+- `database.py`: Database engine and session configuration.
+- `models.py`: User ORM model mapping.
+- `main.py`: REST API endpoints (`/register`, `/login`), security logic, and token verification.
+
+## Running Instructions
+```bash
+source venv/bin/activate
+pip install fastapi uvicorn passlib[bcrypt] sqlalchemy pydantic python-jose[cryptography] python-multipart
+nohup uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &
+
+cat << 'EOF' > README.md
+# FastAPI Backend Deployment on AWS EC2
+
+## Architecture Overview
+- **Framework:** FastAPI (Python 3.9+)
+- **Database:** SQLite with SQLAlchemy ORM
+- **Authentication:** Passlib (Bcrypt) & JWT Tokens (python-jose)
+- **Server:** Uvicorn ASGI Server
+- **Infrastructure:** AWS EC2 (Amazon Linux 2023)
+
+## Key Components
+- `database.py`: Database engine and session configuration.
+- `models.py`: User ORM model mapping.
+- `main.py`: REST API endpoints (`/register`, `/login`), security logic, and token verification.
+
+## Running Instructionscat << 'EOF' > README.md
+# FastAPI Backend Deployment on AWS EC2
+
+## Architecture Overview
+- **Framework:** FastAPI (Python 3.9+)
+- **Database:** SQLite with SQLAlchemy ORM
+- **Authentication:** Passlib (Bcrypt) & JWT Tokens (python-jose)
+- **Server:** Uvicorn ASGI Server
+- **Infrastructure:** AWS EC2 (Amazon Linux 2023)
+
+## Key Components
+- `database.py`: Database engine and session configuration.
+- `models.py`: User ORM model mapping.
+- `main.py`: REST API endpoints (`/register`, `/login`), security logic, and token verification.
+
+## Running Instructions
+cat << 'EOF' > README.md
+# FastAPI Backend Deployment on AWS EC2
+
+## Architecture Overview
+- **Framework:** FastAPI (Python 3.9+)
+- **Database:** SQLite with SQLAlchemy ORM
+- **Authentication:** Passlib (Bcrypt) & JWT Tokens (python-jose)
+- **Server:** Uvicorn ASGI Server
+- **Infrastructure:** AWS EC2 (Amazon Linux 2023)
+
+## Key Components
+- `database.py`: Database engine and session configuration.
+- `models.py`: User ORM model mapping.
+- `main.py`: REST API endpoints (`/register`, `/login`), security logic, and token verification.
+
+## Running Instructions
+
+echo "# FastAPI AWS Backend" > README.md
+git add .
+git commit -m "Add project README"
+git push origin mainecho "# FastAPI AWS Backend" > README.md
+git add .
+git commit -m "Add project README"
+git push origin main
+sudo yum install git -y
+git init
+git add .
+git commit -m "Complete FastAPI AWS EC2 Backend"
+git remote add origin <apne-github-repo-ka-url>
+git branch -M main
+git push -u origin main
+git remote set-url origin https://github.com/apna-username/apna-repo-name.git || git remote add origin https://github.com/apna-username/apna-repo-name.git
+git remote add origin https://github.com/Thapapriyanka123/placementpulse-backend.git
+git branch -M main
+git push -u origin main
+ssh-keygen -t rsa -b 4096 -C "Thapapriyanka123@gmail.com"
